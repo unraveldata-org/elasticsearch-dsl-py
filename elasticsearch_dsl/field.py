@@ -10,7 +10,7 @@ from .exceptions import ValidationException
 
 def construct_field(name_or_field, **params):
     # {"type": "text", "analyzer": "snowball"}
-    if isinstance(name_or_field, collections.Mapping):
+    if isinstance(name_or_field, collections.abc.Mapping):
         if params:
             raise ValueError('construct_field() cannot accept parameters when passing in a dict.')
         params = name_or_field.copy()

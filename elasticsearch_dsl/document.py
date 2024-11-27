@@ -210,7 +210,7 @@ class DocType(ObjectBase):
         es = connections.get_connection(using or cls._doc_type.using)
         body = {
             'docs': [
-                doc if isinstance(doc, collections.Mapping) else {'_id': doc}
+                doc if isinstance(doc, collections.abc.Mapping) else {'_id': doc}
                 for doc in docs
             ]
         }

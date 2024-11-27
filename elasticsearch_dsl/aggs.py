@@ -10,7 +10,7 @@ def A(name_or_agg, filter=None, **params):
         params['filter'] = filter
 
     # {"terms": {"field": "tags"}, "aggs": {...}}
-    if isinstance(name_or_agg, collections.Mapping):
+    if isinstance(name_or_agg, collections.abc.Mapping):
         if params:
             raise ValueError('A() cannot accept parameters when passing in a dict.')
         # copy to avoid modifying in-place

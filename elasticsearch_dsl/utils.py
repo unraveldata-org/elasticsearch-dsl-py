@@ -11,7 +11,7 @@ SKIP_VALUES = ('', None)
 EXPAND__TO_DOT=True
 
 def _wrap(val, obj_wrapper=None):
-    if isinstance(val, collections.Mapping):
+    if isinstance(val, collections.abc.Mapping):
         return AttrDict(val) if obj_wrapper is None else obj_wrapper(val)
     if isinstance(val, list):
         return AttrList(val)
@@ -283,7 +283,7 @@ class DslBase(object):
                 '%r object has no attribute %r' % (self.__class__.__name__, name))
 
         # wrap nested dicts in AttrDict for convenient access
-        if isinstance(value, collections.Mapping):
+        if isinstance(value, collections.abc.Mapping):
             return AttrDict(value)
         return value
 
@@ -399,13 +399,13 @@ class ObjectBase(AttrDict):
         self.clean()
 
 def merge(data, new_data):
-    if not (isinstance(data, (AttrDict, collections.Mapping))
-            and isinstance(new_data, (AttrDict, collections.Mapping))):
+    if not (isinstance(data, (AttrDict, collections.abc.Mapping))
+            and isinstance(new_data, (AttrDict, collections.abc.Mapping))):
         raise ValueError('You can only merge two dicts! Got %r and %r instead.' % (data, new_data))
 
     for key, value in iteritems(new_data):
-        if key in data and isinstance(getattr(data, key), (AttrDict, collections.Mapping)) and \
-                isinstance(value, (AttrDict, collections.Mapping)):
+        if key in data and isinstance(getattr(data, key), (AttrDict, collections.abc.Mapping)) and \
+                isinstance(value, (AttrDict, collections.abc.Mapping)):
             merge(getattr(data, key), value)
         else:
             setattr(data, key, value)
