@@ -23,9 +23,6 @@ tests_require = [
     "pytz"
 ]
 
-# use external unittest for 2.6
-if sys.version_info[:2] == (2, 6):
-    tests_require.append('unittest2')
 
 setup(
     name = "elasticsearch-dsl-unravel",
